@@ -20,7 +20,7 @@ public class IndiaStateAnalyserTest {
 
 	
 	private static final String FILE_PATH_STATECODE = "C:\\\\Users\\\\admin\\\\eclipse-workspace\\\\IndianStateCensusCSV\\\\src\\\\main\\\\resources\\\\IndiaStateCode.csv";
-	
+	private static final String FILE_PATH_STATECODE_EXTENSION = "C:\\\\Users\\\\admin\\\\eclipse-workspace\\\\IndianStateCensusCSV\\\\src\\\\main\\\\resources\\\\IndiaStateCode.txt";
 	@Test
 	public void givenIndianCensusCSVFileReturnsCorrectRecords() throws IOException, CensusAnalyserException {
         
@@ -87,7 +87,16 @@ public void givenIndianStaeCodeCSVFileReturnsCorrectRecords() throws CensusAnaly
 		Assert.assertEquals(37, count);
 	}
 
-       
+@Test
+public void givenStateCodeCSVFile_whenWrongFile_ShouldThrowError() throws IOException {
+	CensusAnalyser censusAnalyser = new CensusAnalyser();
+	try {
+		 int numOfRecords = censusAnalyser.loadCSVData(WRONG_FILE_PATH);
+	} catch (CensusAnalyserException exception) {
+		System.out.println("No such file found");
+		assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_FILE, exception.type);
+	}
+} 
 
 
 }
