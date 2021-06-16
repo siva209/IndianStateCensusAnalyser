@@ -16,7 +16,8 @@ public class IndiaStateAnalyserTest {
 	private static final String WRONG_FILE_PATH = "C:\\Users\\main\\eclipse-workspace\\IndianStateCensusCSV\\src\\main\\resources\\IndiaStateCensusData.csv";
 	private static final String FILE_PATH_WRONG_EXTENSION = "C:\\\\Users\\\\admin\\\\eclipse-workspace\\\\IndianStateCensusCSV\\\\src\\\\main\\\\resources\\\\IndiaStateCensusData.txt";
 	private static final String FILE_PATH_DELIMITER = "C:\\Users\\admin\\eclipse-workspace\\IndianStateCensusCSV\\src\\main\\\resources\\IndiaStateCensusDataDelimiter.csv";
-	
+	private static final String FILE_PATH_HEADER = "C:\\Users\\admin\\eclipse-workspace\\IndianStateCensusCSV\\src\\main\\resources\\IndiaStateCensusDataHeader.csv";
+
 	
 	@Test
 	public void givenIndianCensusCSVFileReturnsCorrectRecords() throws IOException, CensusAnalyserException {
@@ -57,6 +58,19 @@ public void givenCSVFile_whenFileCorrect_butDelimiterIncorrect_shouldThrowError(
 		int numOfRecords = censusAnalyser.loadCSVData(FILE_PATH_DELIMITER);
 	} catch (CensusAnalyserException exception) {
 		System.out.println("Incorrect file delimeter");
+		assertEquals(CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE, exception.type);
+	}
+}
+
+
+@Test
+public void givenCSVFile_whenFileCorrect_butHeaderIncorrect_shouldThrowError() throws IOException {
+	CensusAnalyser censusAnalyser = new CensusAnalyser();
+	try {
+		int numOfRecords = censusAnalyser.loadCSVData(FILE_PATH_HEADER);
+
+	} catch (CensusAnalyserException exception) {
+		System.out.println("Incorrect file Header");
 		assertEquals(CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE, exception.type);
 	}
 }
